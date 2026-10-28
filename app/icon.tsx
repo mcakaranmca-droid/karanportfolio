@@ -12,7 +12,7 @@ export default function Icon() {
     (
       <div
         style={{
-          fontSize: 18,
+          fontSize: 14,
           background: "linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #06B6D4 100%)",
           width: "100%",
           height: "100%",
@@ -23,9 +23,10 @@ export default function Icon() {
           borderRadius: 8,
           fontWeight: 800,
           fontFamily: "sans-serif",
+          letterSpacing: -0.5,
         }}
       >
-        K
+        KC
       </div>
     ),
     {

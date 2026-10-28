@@ -44,13 +44,24 @@ export const fadeInRight: Variants = {
   },
 };
 
-export const staggerContainer = (staggerChildren = 0.1, delayChildren = 0): Variants => ({
+const createStagger = (staggerChildren = 0.1, delayChildren = 0): Variants => ({
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
       staggerChildren,
       delayChildren,
+    },
+  },
+});
+
+export const staggerContainer: any = Object.assign(createStagger, {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0,
     },
   },
 });

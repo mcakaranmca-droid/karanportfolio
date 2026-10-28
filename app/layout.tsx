@@ -1,19 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Fira_Code } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/lib/constants";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const firaCode = Fira_Code({
-  subsets: ["latin"],
-  variable: "--font-fira-code",
-  display: "swap",
-});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://karanportfolio.vercel.app";
 
@@ -92,7 +79,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`dark ${inter.variable} ${firaCode.variable}`}>
+    <html lang="en" className="dark">
       <body className="bg-[#0B1120] text-slate-100 min-h-screen selection:bg-indigo-600/30 selection:text-white">
         {children}
       </body>

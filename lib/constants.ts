@@ -4,35 +4,45 @@ export interface SiteConfig {
   role: string;
   title: string;
   heroBio: string;
-  tagline: string;
+  heroHeadline: string;
+  heroSupportingHeadline: string;
+  education: string;
   location: string;
+  aboutIntro: string;
+  aboutBio: string;
   availability: string;
   email: string;
+  resumeUrl: string;
   socials: {
     linkedin: string;
     github: string;
     instagram: string;
-    youtube: string;
     email: string;
   };
 }
 
 export const siteConfig: SiteConfig = {
-  name: "Karan",
-  initials: "KP",
+  name: "KARAN C",
+  initials: "KC",
   role: "Digital Marketer | Video Editor | Full Stack Developer",
   title: "Digital Marketer, Video Editor & Full Stack Developer",
+  heroHeadline: "CREATIVITY MEETS TECHNOLOGY.",
+  heroSupportingHeadline: "Digital Marketing. Video Editing. Full Stack Development.",
   heroBio:
-    "I help brands grow through strategic digital marketing, engaging video content, and modern web development to build a powerful online presence.",
-  tagline: "Turning Ideas Into Digital Growth.",
-  location: "Open for Global Remote & Hybrid Roles",
-  availability: "Available for Freelance & Collaborative Projects",
+    "Turning ideas into digital experiences through creative storytelling, smart marketing, and modern web development.",
+  education: "Bachelor of Computer Applications (BCA) Graduate",
+  location: "Trichy, Tamil Nadu, India",
+  aboutIntro:
+    "I'm a BCA graduate passionate about digital marketing, creative video editing, and full stack development. I combine creativity, technology, and strategy to create engaging digital experiences, produce impactful content, and help businesses grow online. I'm also developing NOVIS, my personal AI assistant project, as part of my journey into AI-powered application development.",
+  aboutBio:
+    "I'm a BCA graduate with a strong interest in the intersection of marketing, design, and technology. My focus is on developing practical skills across digital marketing, video editing, and full stack development. I enjoy experimenting with modern tools, solving problems, and transforming ideas into meaningful digital experiences. I'm currently expanding my technical skills through personal projects, including NOVIS, my personal AI assistant.",
+  availability: "Available for Projects & Collaborations",
   email: "contact.karanportfolio@gmail.com",
+  resumeUrl: "#resume-modal",
   socials: {
-    linkedin: "https://linkedin.com/in/",
-    github: "https://github.com/",
-    instagram: "https://instagram.com/",
-    youtube: "https://youtube.com/",
+    linkedin: "https://linkedin.com/in/karanc-portfolio",
+    github: "https://github.com/karanc-dev",
+    instagram: "https://instagram.com/karanc.creates",
     email: "mailto:contact.karanportfolio@gmail.com",
   },
 };
@@ -41,8 +51,8 @@ export const heroTypingRoles = [
   "Digital Marketing Strategist",
   "Creative Video Editor",
   "Full Stack Developer",
-  "Social Media Growth Enthusiast",
-  "Digital Content Creator",
+  "BCA Graduate & Technologist",
+  "Creator of NOVIS AI Assistant",
 ];
 
 export const navLinks = [
@@ -51,13 +61,13 @@ export const navLinks = [
   { name: "Skills", href: "#skills" },
   { name: "Services", href: "#services" },
   { name: "Projects", href: "#projects" },
-  { name: "Showreel", href: "#showreel" },
-  { name: "Process", href: "#process" },
-  { name: "Experience", href: "#experience" },
+  { name: "NOVIS AI", href: "#novis" },
+  { name: "Journey", href: "#journey" },
+  { name: "Tools", href: "#tools" },
   { name: "Contact", href: "#contact" },
 ];
 
-export interface SkillGroup {
+export interface SkillItem {
   id: string;
   name: string;
   percentage: number;
@@ -65,89 +75,72 @@ export interface SkillGroup {
   gradient: string;
   accentColor: string;
   description: string;
-  skills: {
-    name: string;
-    level: string;
-    icon: string;
-  }[];
+  visualType: "circle" | "timeline" | "terminal";
+  items: string[];
 }
 
-export const skillGroups: SkillGroup[] = [
+export const skillsData: SkillItem[] = [
   {
     id: "marketing",
     name: "Digital Marketing",
     percentage: 80,
-    badge: "Growth & Strategy",
+    badge: "80% Proficiency",
     gradient: "from-blue-500 to-indigo-600",
-    accentColor: "#4F46E5",
+    accentColor: "#3B82F6",
     description:
-      "Data-driven marketing, paid acquisition, high-converting social campaigns, and organic search visibility.",
-    skills: [
-      { name: "Digital Marketing Strategy", level: "Advanced", icon: "TrendingUp" },
-      { name: "Social Media Marketing", level: "Advanced", icon: "Share2" },
-      { name: "Search Engine Optimization (SEO)", level: "Advanced", icon: "Search" },
-      { name: "Google Ads", level: "Advanced", icon: "Target" },
-      { name: "Meta Ads (FB & IG)", level: "Advanced", icon: "Megaphone" },
-      { name: "Content Marketing", level: "Advanced", icon: "FileText" },
-      { name: "Keyword Research", level: "Proficient", icon: "Key" },
-      { name: "Audience Targeting", level: "Advanced", icon: "Users" },
-      { name: "Conversion Tracking", level: "Advanced", icon: "BarChart3" },
-      { name: "Marketing Analytics", level: "Advanced", icon: "PieChart" },
-      { name: "Campaign Optimization", level: "Advanced", icon: "Sliders" },
-      { name: "Lead Generation", level: "Proficient", icon: "UserPlus" },
+      "Data-driven marketing, paid campaigns, high-converting social media systems, and organic search optimization.",
+    visualType: "circle",
+    items: [
+      "SEO and keyword research",
+      "Google Ads and campaign optimization",
+      "Meta Ads and audience targeting",
+      "Social media management",
+      "Content strategy and analytics",
+      "Lead generation and conversion optimization",
     ],
   },
   {
     id: "video",
     name: "Video Editing",
     percentage: 80,
-    badge: "Storytelling & Motion",
+    badge: "80% Proficiency",
     gradient: "from-purple-500 to-pink-600",
-    accentColor: "#7C3AED",
+    accentColor: "#A855F7",
     description:
-      "Engaging short-form content, cinematic promo videos, dynamic kinetic typography, and polished visual storytelling.",
-    skills: [
-      { name: "CapCut", level: "Expert", icon: "Film" },
-      { name: "Adobe Premiere Pro", level: "Advanced", icon: "Video" },
-      { name: "Adobe After Effects", level: "Intermediate", icon: "Sparkles" },
-      { name: "Canva Pro", level: "Expert", icon: "Palette" },
-      { name: "Short-Form Video Editing", level: "Expert", icon: "Smartphone" },
-      { name: "Instagram Reels", level: "Expert", icon: "Instagram" },
-      { name: "YouTube Shorts", level: "Expert", icon: "Youtube" },
-      { name: "Promotional Videos", level: "Advanced", icon: "Tv" },
-      { name: "Motion Graphics", level: "Advanced", icon: "Layers" },
-      { name: "Cinematic Transitions", level: "Advanced", icon: "Scissors" },
-      { name: "Color Correction", level: "Advanced", icon: "Sun" },
-      { name: "Sound Design", level: "Advanced", icon: "Volume2" },
-      { name: "Text Animation", level: "Advanced", icon: "Type" },
-      { name: "Storytelling", level: "Advanced", icon: "Feather" },
+      "High-energy video storytelling, promotional content, kinetic typography, and rhythmic audio synchronization.",
+    visualType: "timeline",
+    items: [
+      "Business promotional video editing",
+      "Instagram Reels and YouTube Shorts",
+      "Cinematic transitions",
+      "Motion graphics and text animation",
+      "Sound design and beat synchronization",
+      "Brand storytelling and promotional content",
     ],
   },
   {
     id: "development",
     name: "Full Stack Development",
     percentage: 60,
-    badge: "Modern Web Engineering",
-    gradient: "from-cyan-500 to-blue-600",
+    badge: "60% Proficiency",
+    gradient: "from-cyan-400 to-blue-600",
     accentColor: "#06B6D4",
     description:
-      "Modern full-stack web applications, responsive interfaces, performant APIs, and type-safe architecture.",
-    skills: [
-      { name: "HTML5 & CSS3", level: "Advanced", icon: "Code" },
-      { name: "JavaScript (ES6+)", level: "Advanced", icon: "Cpu" },
-      { name: "TypeScript", level: "Proficient", icon: "FileCode" },
-      { name: "React", level: "Advanced", icon: "Boxes" },
-      { name: "Next.js (App Router)", level: "Proficient", icon: "Globe" },
-      { name: "Tailwind CSS", level: "Expert", icon: "Wind" },
-      { name: "Node.js", level: "Proficient", icon: "Server" },
-      { name: "Express.js", level: "Proficient", icon: "Workflow" },
-      { name: "MongoDB", level: "Proficient", icon: "Database" },
-      { name: "REST APIs", level: "Advanced", icon: "Network" },
-      { name: "Git & GitHub", level: "Advanced", icon: "GitBranch" },
-      { name: "Responsive Web Design", level: "Expert", icon: "Monitor" },
+      "Modern full stack web engineering, responsive user interfaces, REST APIs, and database fundamentals.",
+    visualType: "terminal",
+    items: [
+      "HTML, CSS, and JavaScript",
+      "React.js frontend development",
+      "Responsive website design",
+      "Node.js and Express.js",
+      "MongoDB database fundamentals",
+      "REST API integration and debugging",
     ],
   },
 ];
+
+export const skillAssessmentDisclaimer =
+  "Skill percentages represent my self-assessed proficiency.";
 
 export interface ServiceItem {
   id: string;
@@ -157,217 +150,486 @@ export interface ServiceItem {
   description: string;
   deliverables: string[];
   gradient: string;
+  badge: string;
 }
 
-export const services: ServiceItem[] = [
+export const servicesData: ServiceItem[] = [
   {
     id: "digital-marketing",
     title: "Digital Marketing",
-    category: "Strategy & Growth",
+    category: "Marketing & Strategy",
     icon: "TrendingUp",
+    badge: "Growth Strategy",
     description:
-      "Holistic digital marketing campaigns built on data-backed strategy, competitive research, and targeted online execution.",
+      "Systematic campaigns to expand brand reach, capture qualified leads, and maximize advertising return on investment.",
     deliverables: [
-      "Custom digital growth roadmap",
-      "Audience persona & competitor research",
-      "Online growth planning & KPI tracking",
-      "Campaign performance optimization",
+      "Social media management",
+      "Google Ads and Meta Ads",
+      "SEO optimization",
+      "Content planning",
+      "Lead generation",
+      "Campaign analysis",
     ],
-    gradient: "from-indigo-500/20 to-blue-500/10",
-  },
-  {
-    id: "social-media",
-    title: "Social Media Management",
-    category: "Organic Presence",
-    icon: "Share2",
-    description:
-      "Structured social media content systems to elevate brand awareness, drive engagement, and foster authentic follower communities.",
-    deliverables: [
-      "Instagram & Facebook tailored content",
-      "Monthly content calendar planning",
-      "Post & short-form reel strategy",
-      "Visual brand identity & aesthetic consistency",
-    ],
-    gradient: "from-violet-500/20 to-purple-500/10",
-  },
-  {
-    id: "paid-advertising",
-    title: "Paid Advertising",
-    category: "Performance Ads",
-    icon: "Target",
-    description:
-      "High-ROI paid advertising campaigns across Google and Meta platforms targeted at maximum conversion and customer acquisition.",
-    deliverables: [
-      "Google Search & Display Ads campaigns",
-      "Meta Ads (Facebook & Instagram) funnels",
-      "Custom audience targeting & retargeting",
-      "Pixel setup, conversion tracking & ROAS analysis",
-    ],
-    gradient: "from-blue-500/20 to-cyan-500/10",
+    gradient: "from-blue-600/20 via-indigo-600/10 to-transparent",
   },
   {
     id: "video-editing",
-    title: "Professional Video Editing",
-    category: "Content Creation",
+    title: "Video Editing & Motion Graphics",
+    category: "Creative Production",
     icon: "Film",
+    badge: "Visual Storytelling",
     description:
-      "High-energy, thumb-stopping video editing crafted specifically for algorithms and audience retention across modern platforms.",
+      "Cinematic video editing and dynamic motion graphics engineered for high audience retention across modern platforms.",
     deliverables: [
-      "High-converting Instagram Reels & YouTube Shorts",
-      "Business & product promotional videos",
-      "Kinetic text animations & sound design",
-      "Color grading & cinematic visual effects",
+      "Business promotional videos",
+      "Short-form social media content",
+      "Cinematic editing",
+      "Animated typography",
+      "Motion graphics",
+      "Brand promotional content",
     ],
-    gradient: "from-pink-500/20 to-rose-500/10",
+    gradient: "from-purple-600/20 via-pink-600/10 to-transparent",
   },
   {
-    id: "website-development",
-    title: "Website Development",
-    category: "Frontend UI/UX",
-    icon: "Layout",
-    description:
-      "Speed-optimized, responsive websites designed to reflect your brand's quality and convert visitors into paying clients.",
-    deliverables: [
-      "Custom business & agency websites",
-      "High-converting product landing pages",
-      "Portfolio & personal branding platforms",
-      "Mobile-first responsive UI development",
-    ],
-    gradient: "from-cyan-500/20 to-teal-500/10",
-  },
-  {
-    id: "full-stack-solutions",
-    title: "Full Stack Solutions",
+    id: "full-stack-dev",
+    title: "Full Stack Development",
     category: "Web Engineering",
-    icon: "Terminal",
+    icon: "Code2",
+    badge: "Modern Applications",
     description:
-      "Full stack web development connecting interactive client-side interfaces with robust server architectures and databases.",
+      "End-to-end web applications and modern websites built with clean architecture, responsive design, and smooth interactions.",
     deliverables: [
-      "Interactive Next.js & React frontend interfaces",
-      "Node.js & Express.js backend APIs",
-      "MongoDB database modeling & integration",
-      "RESTful API integration & maintenance",
+      "Responsive portfolio websites",
+      "Business websites and landing pages",
+      "Frontend and backend development",
+      "REST API integration",
+      "Database connectivity",
+      "Application development",
     ],
-    gradient: "from-indigo-500/20 to-violet-500/10",
+    gradient: "from-cyan-600/20 via-blue-600/10 to-transparent",
   },
 ];
 
 export interface ProjectItem {
   id: string;
   title: string;
-  category: "Digital Marketing" | "Video Editing" | "Web Development";
+  category: "Artificial Intelligence" | "Digital Marketing" | "Video Editing" | "Web Development";
   tagline: string;
   description: string;
   tools: string[];
-  type: "Concept Project" | "Practice Exploration" | "Showcase Work";
-  metrics?: { label: string; value: string }[];
+  status: "In Development" | "Completed" | "Showcase Work" | "Concept Exploration";
+  isFlagship?: boolean;
   highlight: string;
   accent: string;
+  metrics?: { label: string; value: string }[];
+  features?: string[];
+  githubUrl?: string;
+  liveUrl?: string;
+  detailNotes: string;
 }
 
-export const projects: ProjectItem[] = [
+export const projectsData: ProjectItem[] = [
   {
-    id: "marketing-campaign",
-    title: "Digital Marketing Campaign",
-    category: "Digital Marketing",
-    tagline: "Omnichannel Acquisition & Growth Strategy",
+    id: "novis-ai",
+    title: "NOVIS: Personal AI Assistant",
+    category: "Artificial Intelligence",
+    tagline: "Your Personal AI Assistant. Built for What's Next.",
     description:
-      "A campaign concept focused on brand awareness, audience targeting, creative content, and measurable marketing performance across paid and organic channels.",
-    tools: ["Google Ads", "Meta Ads", "SEO", "Google Analytics", "Audience Insights"],
-    type: "Concept Project",
+      "NOVIS is my flagship personal AI assistant project, which I'm currently developing to explore intelligent assistance, modern application architecture, and AI-powered user experiences. The goal is to create an intuitive assistant that helps users interact with technology more naturally and complete useful tasks efficiently.",
+    tools: ["React.js", "JavaScript", "Node.js", "Express.js", "AI API Integration", "Tailwind CSS"],
+    status: "In Development",
+    isFlagship: true,
+    highlight: "Custom animated intelligence core, contextual prompt architecture, and multi-modal productivity workflows.",
+    accent: "from-blue-600/40 via-violet-600/30 to-cyan-500/30",
     metrics: [
-      { label: "Target ROAS", value: "3.4x Model" },
-      { label: "Channel Mix", value: "Search + Social" },
-      { label: "Objective", value: "Lead Acquisition" },
+      { label: "Status", value: "In Active Dev" },
+      { label: "Focus", value: "Conversational AI" },
+      { label: "Architecture", value: "Full Stack" },
     ],
-    highlight: "Comprehensive funnel mapping from top-of-funnel awareness reels to conversion landing pages.",
+    features: [
+      "Natural-language interaction through modern AI models",
+      "Planned voice interaction and spoken responses",
+      "Everyday productivity workflow assistance",
+      "Context-aware response handling",
+    ],
+    githubUrl: "https://github.com/karanc-dev/novis-ai-assistant",
+    liveUrl: "#novis",
+    detailNotes:
+      "NOVIS represents my transition into building intelligent AI-driven applications. Built modularly with a React frontend and Node.js backend.",
+  },
+  {
+    id: "ai-marketing-system",
+    title: "AI-Powered Digital Marketing System",
+    category: "Digital Marketing",
+    tagline: "Intelligent Marketing Automation & Analytics Concept",
+    description:
+      "An AI-focused digital marketing exploration project integrating automated social media workflows, AI content generation, SEO recommendations, and performance analytics dashboards into a unified dashboard.",
+    tools: ["AI APIs", "Google Analytics Concept", "SEO Algorithms", "Next.js", "Tailwind CSS"],
+    status: "Concept Exploration",
+    highlight: "Simulated audience analysis, automated copy generation, and data-driven ad campaign recommendation engine.",
     accent: "from-blue-600/30 to-indigo-600/30",
+    metrics: [
+      { label: "Concept", value: "Automated Workflows" },
+      { label: "Optimization", value: "SEO & Ads" },
+      { label: "Status", value: "Proposed Features" },
+    ],
+    features: [
+      "AI content generation concepts",
+      "Automated social media workflows",
+      "SEO recommendations pipeline",
+      "Marketing analytics dashboard",
+      "Website integration concepts",
+    ],
+    githubUrl: "https://github.com/karanc-dev/ai-marketing-system",
+    detailNotes:
+      "Features are clearly labeled as concept exploration and proposed workflows while under active architectural design.",
+  },
+  {
+    id: "personal-portfolio",
+    title: "Personal Portfolio Website",
+    category: "Web Development",
+    tagline: "High-Performance Animated Digital Showcase",
+    description:
+      "A modern, responsive personal portfolio website built with React, Next.js, and Framer Motion. Engineered with cinematic dark aesthetics, interactive cards, micro-interactions, and accessible typography.",
+    tools: ["React.js", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    status: "Completed",
+    highlight: "Apple & Framer inspired UI, custom canvas particle animations, smooth page transitions, and WCAG AA accessibility.",
+    accent: "from-indigo-600/30 to-purple-600/30",
+    metrics: [
+      { label: "Design", value: "Awwwards Inspired" },
+      { label: "Performance", value: "60fps Animations" },
+      { label: "Stack", value: "React + Next.js" },
+    ],
+    features: [
+      "Responsive React interface",
+      "Smooth Framer Motion transitions",
+      "Interactive NOVIS intelligence orb",
+      "Self-assessed skills visualizer",
+      "Contact form with live feedback",
+    ],
+    githubUrl: "https://github.com/karanc-dev/karan-portfolio",
+    liveUrl: "#hero",
+    detailNotes:
+      "Crafted as a complete digital product reflecting the synergy of design, video storytelling, and code.",
   },
   {
     id: "promotional-video",
     title: "Business Promotional Video",
     category: "Video Editing",
-    tagline: "Cinematic Brand Story & Value Proposition",
+    tagline: "Cinematic Brand Story & Visual Elevation",
     description:
-      "A polished promotional video concept designed to showcase a business, communicate its value, and encourage customer engagement with cinematic pacing.",
-    tools: ["CapCut", "Adobe Premiere Pro", "Motion Graphics", "Color Grading", "Sound Design"],
-    type: "Showcase Work",
-    metrics: [
-      { label: "Resolution", value: "4K UHD" },
-      { label: "Pacing", value: "Dynamic / Cinematic" },
-      { label: "Soundtrack", value: "Custom SFX Mix" },
-    ],
-    highlight: "Seamless multi-track editing, audio ducking, color curve adjustments, and branded kinetic typography.",
+      "A creative video project featuring cinematic pacing, animated typography, sound synchronization, dynamic visual transitions, and brand storytelling crafted to maximize retention.",
+    tools: ["CapCut", "Premiere Pro", "Motion Graphics", "Sound Design", "Color Grading"],
+    status: "Showcase Work",
+    highlight: "Engineered multi-layer sound design, kinetic text animations, and high-impact visual transitions.",
     accent: "from-purple-600/30 to-pink-600/30",
-  },
-  {
-    id: "social-reel-series",
-    title: "Social Media Reel Series",
-    category: "Video Editing",
-    tagline: "Short-Form High-Retention Content System",
-    description:
-      "A short-form content series combining attention-grabbing hooks, visual storytelling, dynamic text, and clear calls to action optimized for 9:16 mobile screens.",
-    tools: ["CapCut", "Content Strategy", "Social Media Marketing", "Canva"],
-    type: "Showcase Work",
     metrics: [
-      { label: "Format", value: "9:16 Vertical" },
-      { label: "Hook Rate", value: "First 3-Sec Focus" },
-      { label: "Platform", value: "Reels & Shorts" },
+      { label: "Pacing", value: "Dynamic Cinematic" },
+      { label: "Format", value: "16:9 & 9:16" },
+      { label: "Audio", value: "Rhythmic Beat Sync" },
     ],
-    highlight: "Engineered retention curves with zoom-cuts, sound accents, captions, and visual B-roll transitions.",
-    accent: "from-pink-600/30 to-rose-600/30",
+    features: [
+      "Cinematic editing & speed ramping",
+      "Animated kinetic typography",
+      "Sound design & beat synchronization",
+      "Visual transitions & color grading",
+      "Brand storytelling narrative",
+    ],
+    detailNotes:
+      "Designed as a benchmark for high-retention commercial promos and social video content.",
   },
   {
     id: "business-website",
     title: "Modern Business Website",
     category: "Web Development",
-    tagline: "Speed, Conversion & Clean UX Architecture",
+    tagline: "Responsive Web Architecture & API Connectivity",
     description:
-      "A responsive business website concept with a modern interface, clear service presentation, and conversion-focused calls to action built on Next.js.",
-    tools: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    type: "Concept Project",
-    metrics: [
-      { label: "Lighthouse", value: "95+ Target" },
-      { label: "Stack", value: "Next.js App Router" },
-      { label: "Layout", value: "100% Responsive" },
-    ],
-    highlight: "Semantic markup, fluid typography, dark glass aesthetic, and zero-layout-shift image handling.",
+      "A modern business website project exploring responsive frontend interfaces, backend integration, API connectivity, database operations, and conversion-focused user journeys.",
+    tools: ["React", "Next.js", "Node.js", "Express.js", "MongoDB", "Tailwind CSS"],
+    status: "Concept Exploration",
+    highlight: "Clean component architecture, REST API communication, mobile-first design, and database integration.",
     accent: "from-cyan-600/30 to-blue-600/30",
+    metrics: [
+      { label: "Layout", value: "100% Responsive" },
+      { label: "Backend", value: "Node & Express" },
+      { label: "Database", value: "MongoDB" },
+    ],
+    features: [
+      "Responsive frontend UI",
+      "Backend REST integration",
+      "API connectivity & error handling",
+      "Database operations model",
+      "Clean semantic markup",
+    ],
+    githubUrl: "https://github.com/karanc-dev/modern-business-web",
+    detailNotes:
+      "Full stack implementation demonstrating clean separation of concerns and scalable code structure.",
+  },
+];
+
+export const novisRoadmap = [
+  {
+    phase: "01",
+    title: "AI-Powered Conversations",
+    description: "Natural-language interaction through an intelligent AI model for contextual answering and ideation.",
+    status: "In Development",
+    icon: "Bot",
+    badge: "Core Feature",
   },
   {
-    id: "ai-marketing-system",
-    title: "AI-Powered Marketing System",
-    category: "Web Development",
-    tagline: "Intelligent Content & Analytics Dashboard",
-    description:
-      "A project concept combining AI-assisted content creation, social media workflow management, SEO recommendations, and marketing analytics in one dashboard.",
-    tools: ["Next.js", "React", "AI APIs", "Marketing Analytics", "Tailwind CSS"],
-    type: "Practice Exploration",
-    metrics: [
-      { label: "Architecture", value: "Modular API" },
-      { label: "Feature", value: "SEO Auto-Audit" },
-      { label: "Interface", value: "Analytics Grid" },
-    ],
-    highlight: "Interactive charts, generative prompts workflow, and automated social schedule visualization.",
-    accent: "from-indigo-600/30 to-cyan-600/30",
+    phase: "02",
+    title: "Voice Interaction",
+    description: "Potential speech input and spoken responses for hands-free natural interaction.",
+    status: "Planned",
+    icon: "Mic",
+    badge: "Audio AI",
   },
   {
-    id: "digital-agency-landing",
-    title: "Digital Agency Landing Page",
-    category: "Web Development",
-    tagline: "High-Impact Visual Narrative for Modern Studios",
-    description:
-      "A premium landing page concept for a digital agency, designed to communicate services, build trust, and generate inquiries with smooth micro-interactions.",
-    tools: ["Next.js", "Tailwind CSS", "Framer Motion", "Lucide Icons"],
-    type: "Showcase Work",
-    metrics: [
-      { label: "Interaction", value: "Smooth Parallax" },
-      { label: "Contrast", value: "WCAG AA Pass" },
-      { label: "Conversion", value: "Sticky CTA Dock" },
-    ],
-    highlight: "Floating glow backdrops, interactive tabs, responsive contact triggers, and sleek brand storytelling.",
-    accent: "from-violet-600/30 to-indigo-600/30",
+    phase: "03",
+    title: "Smart Task Assistance",
+    description: "Support for useful everyday tasks, scheduling, notes, and productivity workflows.",
+    status: "Planned",
+    icon: "CheckSquare",
+    badge: "Productivity",
   },
+  {
+    phase: "04",
+    title: "Modern Chat Interface",
+    description: "A clean, responsive, dark-mode glassmorphic interface for conversational interaction.",
+    status: "In Progress",
+    icon: "MessageSquare",
+    badge: "UI/UX",
+  },
+  {
+    phase: "05",
+    title: "Context-Aware Responses",
+    description: "Maintain useful conversational context and memory across ongoing user interactions.",
+    status: "Planned",
+    icon: "Cpu",
+    badge: "Memory",
+  },
+  {
+    phase: "06",
+    title: "Full Stack Integration",
+    description: "Connect the React frontend, Node backend, AI service, and data storage seamlessly.",
+    status: "In Progress",
+    icon: "Server",
+    badge: "Architecture",
+  },
+];
+
+export const novisTechStack = [
+  {
+    category: "Frontend",
+    technologies: ["React.js", "JavaScript", "HTML5", "CSS3 / Tailwind"],
+    status: "Implemented",
+    color: "text-blue-400 border-blue-500/20 bg-blue-500/10",
+  },
+  {
+    category: "Backend",
+    technologies: ["Node.js", "Express.js"],
+    status: "In Progress",
+    color: "text-emerald-400 border-emerald-500/20 bg-emerald-500/10",
+  },
+  {
+    category: "AI Integration",
+    technologies: ["Selected AI Model / API"],
+    status: "Under Evaluation",
+    color: "text-purple-400 border-purple-500/20 bg-purple-500/10",
+  },
+  {
+    category: "Database",
+    technologies: ["MongoDB (if used)"],
+    status: "Planned",
+    color: "text-cyan-400 border-cyan-500/20 bg-cyan-500/10",
+  },
+  {
+    category: "Potential Additional",
+    technologies: ["Speech Recognition", "Text-to-Speech", "Authentication", "External API Integrations"],
+    status: "Planned",
+    color: "text-amber-400 border-amber-500/20 bg-amber-500/10",
+  },
+];
+
+export const novisTimelinePhases = [
+  {
+    phase: "Phase 01",
+    title: "Idea & Vision",
+    description: "Define the purpose, architectural goals, and design philosophy of NOVIS.",
+    status: "Completed",
+    date: "Milestone 1",
+  },
+  {
+    phase: "Phase 02",
+    title: "UI/UX Design",
+    description: "Develop the visual identity, glassmorphism interface, and intelligence orb interactions.",
+    status: "In Progress",
+    date: "Current Focus",
+  },
+  {
+    phase: "Phase 03",
+    title: "Core Development",
+    description: "Build the initial React client application and foundational interface components.",
+    status: "In Progress",
+    date: "Current Focus",
+  },
+  {
+    phase: "Phase 04",
+    title: "AI Integration",
+    description: "Connect the selected AI model API and implement conversational pipelines.",
+    status: "Planned",
+    date: "Upcoming",
+  },
+  {
+    phase: "Phase 05",
+    title: "Testing & Optimization",
+    description: "Test conversational accuracy, latency, responsiveness, and memory retention.",
+    status: "Planned",
+    date: "Upcoming",
+  },
+  {
+    phase: "Phase 06",
+    title: "Launch",
+    description: "Deploy the NOVIS application live with public documentation and demonstration.",
+    status: "Planned",
+    date: "Future Milestone",
+  },
+];
+
+export interface JourneyMilestone {
+  period: string;
+  title: string;
+  category: "Education" | "Digital Marketing" | "Video Production" | "Web Development" | "AI Exploration";
+  location?: string;
+  description: string;
+  status: "Completed" | "Continuous Practice" | "In Active Development";
+  highlights: string[];
+}
+
+export const journeyTimeline: JourneyMilestone[] = [
+  {
+    period: "Graduate",
+    title: "Bachelor of Computer Applications (BCA)",
+    category: "Education",
+    location: "Trichy, Tamil Nadu, India",
+    description:
+      "Graduated with a Bachelor of Computer Applications, establishing solid foundational knowledge in computer science, software logic, database concepts, and computational problem-solving.",
+    status: "Completed",
+    highlights: [
+      "Core computing fundamentals, algorithms, and data structures",
+      "Database management concepts and SQL fundamentals",
+      "Software development life cycle and web programming",
+    ],
+  },
+  {
+    period: "Practice & Execution",
+    title: "Digital Marketing Learning & Practical Projects",
+    category: "Digital Marketing",
+    description:
+      "Hands-on development of practical skills across paid search, social media advertising, search engine optimization, and conversion tracking.",
+    status: "Continuous Practice",
+    highlights: [
+      "Google Ads search and display campaign strategy",
+      "Meta Ads audience segmentation and funnel targeting",
+      "SEO on-page optimization, keyword intent mapping, and analytics",
+    ],
+  },
+  {
+    period: "Creative Craft",
+    title: "Video Editing Practice & Promotional Content",
+    category: "Video Production",
+    description:
+      "Developing engaging visual content using CapCut and Premiere Pro, mastering short-form video dynamics, kinetic text animations, and cinematic brand promos.",
+    status: "Continuous Practice",
+    highlights: [
+      "9:16 high-retention Instagram Reels and YouTube Shorts",
+      "Dynamic sound design, beat synchronization, and audio mixing",
+      "Kinetic typography, visual pacing, and color grading",
+    ],
+  },
+  {
+    period: "Engineering",
+    title: "Full Stack Development Projects",
+    category: "Web Development",
+    description:
+      "Building practical web applications and interactive websites using React, Next.js, JavaScript, Node.js, and MongoDB.",
+    status: "Continuous Practice",
+    highlights: [
+      "Component-driven frontend development with React and Tailwind CSS",
+      "RESTful API design and backend routing with Node.js and Express",
+      "Database schema structuring with MongoDB",
+    ],
+  },
+  {
+    period: "Flagship Innovation",
+    title: "NOVIS AI Assistant Development",
+    category: "AI Exploration",
+    description:
+      "Embarking on the creation of NOVIS, my personal AI assistant, exploring AI model integration, prompt architectures, and conversational UX.",
+    status: "In Active Development",
+    highlights: [
+      "Conceptualizing multi-modal personal assistance workflows",
+      "Designing futuristic glassmorphic UI and interactive core animations",
+      "Iterating through frontend architecture towards full-stack AI deployment",
+    ],
+  },
+];
+
+export interface ToolItem {
+  name: string;
+  category: "Digital Marketing" | "Video Editing" | "Development" | "Artificial Intelligence";
+  experience: "Currently Used" | "Learning / Exploring";
+  icon: string;
+  purpose: string;
+}
+
+export const toolsData: ToolItem[] = [
+  // Digital Marketing
+  { name: "Google Ads", category: "Digital Marketing", experience: "Currently Used", icon: "Target", purpose: "Paid Search & Display Campaigns" },
+  { name: "Meta Ads Manager", category: "Digital Marketing", experience: "Currently Used", icon: "Megaphone", purpose: "Facebook & Instagram Audience Targeting" },
+  { name: "Search Engine Optimization (SEO)", category: "Digital Marketing", experience: "Currently Used", icon: "Search", purpose: "Keyword Analysis & On-Page Visibility" },
+  { name: "Google Analytics", category: "Digital Marketing", experience: "Currently Used", icon: "BarChart3", purpose: "Audience Behavior & Conversion Tracking" },
+  
+  // Video Editing
+  { name: "CapCut", category: "Video Editing", experience: "Currently Used", icon: "Film", purpose: "Short-Form Reels, Captions & Fast Cuts" },
+  { name: "Adobe Premiere Pro", category: "Video Editing", experience: "Currently Used", icon: "Video", purpose: "Cinematic Long-Form & Commercial Edits" },
+  { name: "Adobe After Effects", category: "Video Editing", experience: "Learning / Exploring", icon: "Sparkles", purpose: "Motion Graphics & Kinetic Animation" },
+  { name: "Canva Pro", category: "Video Editing", experience: "Currently Used", icon: "Palette", purpose: "Visual Thumbnails, Storyboards & Graphics" },
+
+  // Development
+  { name: "HTML5 & CSS3", category: "Development", experience: "Currently Used", icon: "Code", purpose: "Modern Semantic Web Layouts" },
+  { name: "JavaScript (ES6+)", category: "Development", experience: "Currently Used", icon: "Cpu", purpose: "Dynamic Logic & Interactive State" },
+  { name: "React.js", category: "Development", experience: "Currently Used", icon: "Boxes", purpose: "Component-Based UI Architecture" },
+  { name: "Next.js", category: "Development", experience: "Currently Used", icon: "Globe", purpose: "Production React Framework & Routing" },
+  { name: "Tailwind CSS", category: "Development", experience: "Currently Used", icon: "Wind", purpose: "Utility-First Responsive Styling" },
+  { name: "Node.js", category: "Development", experience: "Currently Used", icon: "Server", purpose: "Backend Runtime Environment" },
+  { name: "Express.js", category: "Development", experience: "Currently Used", icon: "Workflow", purpose: "RESTful Server APIs & Middleware" },
+  { name: "MongoDB", category: "Development", experience: "Learning / Exploring", icon: "Database", purpose: "NoSQL Database & Document Storage" },
+  { name: "Git & GitHub", category: "Development", experience: "Currently Used", icon: "GitBranch", purpose: "Version Control & Project Collaboration" },
+
+  // Artificial Intelligence
+  { name: "AI Model APIs", category: "Artificial Intelligence", experience: "Currently Used", icon: "Bot", purpose: "Language Models & Generative Inference" },
+  { name: "Prompt Engineering", category: "Artificial Intelligence", experience: "Currently Used", icon: "Terminal", purpose: "Structured Reasoning & Context Optimization" },
+  { name: "Conversational Architecture", category: "Artificial Intelligence", experience: "Currently Used", icon: "MessageSquare", purpose: "Stateful Dialogue & Agentic Workflows" },
+  { name: "Speech & Audio APIs", category: "Artificial Intelligence", experience: "Learning / Exploring", icon: "Mic", purpose: "Voice Input & Text-to-Speech Integration" },
+];
+
+export const contactPresetSubjects = [
+  "Discuss Digital Marketing Strategy",
+  "Video Editing / Promotional Project",
+  "Website or Full Stack Development",
+  "Collaborate on NOVIS AI Assistant",
+  "General Inquiries / Freelance Opportunities",
+];
+
+export const contactServices = contactPresetSubjects;
+
+export const budgetRanges = [
+  "Flexible / Discussion",
+  "Under $500",
+  "$500 - $1,500",
+  "$1,500 - $3,000",
+  "$3,000+",
 ];
 
 export interface ShowreelCategory {
@@ -385,7 +647,7 @@ export const showreelCategories: ShowreelCategory[] = [
     title: "Business Promotions",
     badge: "Commercial",
     description:
-      "Brand elevation videos highlighting core differentiators, customer testimonials, and clear call-to-actions.",
+      "Brand elevation videos highlighting core differentiators, product value propositions, and clear call-to-actions.",
     tags: ["Premiere Pro", "Color Grading", "Sound FX", "4K Video"],
     aspectRatio: "16:9",
   },
@@ -394,7 +656,7 @@ export const showreelCategories: ShowreelCategory[] = [
     title: "Instagram Reels",
     badge: "Short-Form",
     description:
-      "Viral-ready 9:16 vertical edits tailored for engagement, pacing, rhythmic music cuts, and text hooks.",
+      "High-retention 9:16 vertical edits tailored for algorithmic engagement, rhythmic music cuts, and kinetic text hooks.",
     tags: ["CapCut", "Auto Captions", "Kinetic Hooks", "9:16"],
     aspectRatio: "9:16",
   },
@@ -403,7 +665,7 @@ export const showreelCategories: ShowreelCategory[] = [
     title: "YouTube Shorts",
     badge: "Social Media",
     description:
-      "Fast-paced visual storytelling designed for subscriber acquisition and high algorithmic retention.",
+      "Fast-paced visual storytelling designed for subscriber acquisition and strong audience retention curves.",
     tags: ["Fast Pacing", "Sound Cues", "Thumbnail Design", "Shorts"],
     aspectRatio: "9:16",
   },
@@ -415,15 +677,6 @@ export const showreelCategories: ShowreelCategory[] = [
       "Atmospheric mood pieces featuring customized LUT color grading, speed ramps, and evocative soundscapes.",
     tags: ["LUT Grading", "Speed Ramps", "B-Roll", "Story Arc"],
     aspectRatio: "16:9",
-  },
-  {
-    id: "ads",
-    title: "Social Media Ads",
-    badge: "Performance",
-    description:
-      "Direct-response video creatives engineered to boost click-through rates and reduce cost per acquisition.",
-    tags: ["Meta Ads", "A/B Hooks", "CTA Graphic", "Conversion"],
-    aspectRatio: "1:1 / 4:5",
   },
 ];
 
@@ -473,81 +726,4 @@ export const processSteps: ProcessStep[] = [
     outputs: ["Conversion Tuning", "Core Web Vitals Check", "Audience Retargeting", "Final Delivery"],
     icon: "Zap",
   },
-];
-
-export interface JourneyItem {
-  period: string;
-  title: string;
-  domain: "Digital Marketing" | "Video Editing" | "Web Development" | "Creative Technology";
-  description: string;
-  highlights: string[];
-}
-
-export const journeyTimeline: JourneyItem[] = [
-  {
-    period: "Focus Area",
-    title: "Digital Marketing Strategy & Performance Ad Practice",
-    domain: "Digital Marketing",
-    description:
-      "Deepening practical knowledge across Google Ads, Meta Ads Manager, search engine optimization (SEO), and conversion tracking funnels.",
-    highlights: [
-      "Audience persona identification & competitive ad analysis",
-      "Keyword research, search intent matching & on-page SEO",
-      "Performance metrics: CTR, CPC, ROAS, and conversion tracking",
-    ],
-  },
-  {
-    period: "Focus Area",
-    title: "Cinematic Video Editing & Social Media Content Creation",
-    domain: "Video Editing",
-    description:
-      "Mastering CapCut, Premiere Pro, motion graphics, and short-form storytelling designed specifically for high retention on Reels and Shorts.",
-    highlights: [
-      "Crafting compelling 3-second hooks and dynamic kinetic subtitles",
-      "Color grading, LUT matching, sound design, and speed ramping",
-      "Producing promotional video assets for business concepts",
-    ],
-  },
-  {
-    period: "Focus Area",
-    title: "Full Stack Web Development & Modern Architecture",
-    domain: "Web Development",
-    description:
-      "Building full-stack web applications using modern JavaScript, TypeScript, React, Next.js App Router, Tailwind CSS, and Node.js.",
-    highlights: [
-      "Component-driven responsive design with Tailwind CSS",
-      "Building RESTful APIs with Node.js and Express",
-      "Integrating MongoDB database schemas and type-safe workflows",
-    ],
-  },
-  {
-    period: "Continuous",
-    title: "Personal Projects, AI Workflows & Continuous Experimentation",
-    domain: "Creative Technology",
-    description:
-      "Combining marketing acumen, creative storytelling, and coding capabilities to build impactful digital assets and AI-assisted workflows.",
-    highlights: [
-      "Rapid prototyping with modern web frameworks and design systems",
-      "AI-driven content generation pipelines and workflow automations",
-      "Bridging the gap between creative visual media and technical code",
-    ],
-  },
-];
-
-export const contactServices = [
-  "Digital Marketing",
-  "Social Media Management",
-  "Google Ads / Meta Ads",
-  "Video Editing",
-  "Website Development",
-  "Full Stack Development",
-  "Other",
-];
-
-export const budgetRanges = [
-  "Flexible / Discussion",
-  "Under $500",
-  "$500 - $1,500",
-  "$1,500 - $3,000",
-  "$3,000+",
 ];

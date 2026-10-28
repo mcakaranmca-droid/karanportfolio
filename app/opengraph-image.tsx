@@ -59,7 +59,7 @@ export default function OpenGraphImage() {
               maxWidth: 950,
             }}
           >
-            Turning Ideas Into Digital Growth.
+            CREATIVITY MEETS TECHNOLOGY.
           </div>
           <div
             style={{
@@ -68,7 +68,7 @@ export default function OpenGraphImage() {
               fontWeight: 500,
             }}
           >
-            Digital Marketer | Video Editor | Full Stack Developer
+            Digital Marketing • Video Editing • Full Stack Development • Creator of NOVIS AI
           </div>
         </div>
 

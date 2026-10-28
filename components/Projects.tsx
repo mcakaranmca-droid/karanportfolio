@@ -9,26 +9,45 @@ import {
   TrendingUp,
   Film,
   Code2,
+  Bot,
+  Github,
   X,
   Info,
   CheckCircle,
-  BarChart,
   Eye,
+  ArrowRight,
+  ShieldAlert,
 } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { projects, ProjectItem } from "@/lib/constants";
-import { fadeInUp } from "@/lib/animations";
+import { projectsData, ProjectItem } from "@/lib/constants";
+import { fadeInUp, staggerContainer } from "@/lib/animations";
+import { scrollToSection } from "@/lib/utils";
+
+const categoryIconMap: Record<string, React.ElementType> = {
+  "Artificial Intelligence": Bot,
+  "Digital Marketing": TrendingUp,
+  "Video Editing": Film,
+  "Web Development": Code2,
+};
 
 export const Projects: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [activeModalProject, setActiveModalProject] = useState<ProjectItem | null>(null);
 
-  const categories = ["All", "Digital Marketing", "Video Editing", "Web Development"];
+  const categories = [
+    "All",
+    "Artificial Intelligence",
+    "Digital Marketing",
+    "Video Editing",
+    "Web Development",
+  ];
 
   const filteredProjects =
     selectedCategory === "All"
-      ? projects
-      : projects.filter((p) => p.category === selectedCategory);
+      ? projectsData
+      : projectsData.filter((p) => p.category === selectedCategory);
+
+  const flagshipProject = projectsData.find((p) => p.isFlagship) || projectsData[0];
 
   return (
     <section id="projects" className="py-20 lg:py-28 relative">
@@ -36,13 +55,78 @@ export const Projects: React.FC = () => {
         
         {/* Section Header */}
         <SectionHeader
-          badge="Featured Portfolio"
-          title="Selected Work &"
-          highlight="Creative Experiments"
-          description="A curated collection of strategic marketing campaigns, cinematic video edits, and modern full-stack web applications."
+          badge="Selected Works & Engineering"
+          title="Things I'm"
+          highlight="Building & Creating"
+          description="A curated gallery of personal software projects, AI explorations, cinematic video edits, and digital marketing systems."
         />
 
-        {/* Filter Bar */}
+        {/* ========================================================
+            FLAGSHIP FEATURED BANNER — NOVIS AI (Visually Prominent)
+           ======================================================== */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-14 rounded-3xl bg-gradient-to-r from-blue-950/40 via-purple-950/30 to-slate-900/60 border-2 border-cyan-500/30 p-6 sm:p-10 backdrop-blur-2xl relative overflow-hidden shadow-2xl group"
+        >
+          {/* Ambient Lighting */}
+          <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-cyan-500/20 transition-all" />
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+            <div className="lg:col-span-8 space-y-4">
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 uppercase tracking-wider flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                  FLAGSHIP PROJECT
+                </span>
+                <span className="px-3 py-1 rounded-full text-xs font-mono bg-amber-500/10 text-amber-300 border border-amber-500/30">
+                  Status: Currently in Development
+                </span>
+              </div>
+
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
+                {flagshipProject.title}
+              </h3>
+
+              <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl">
+                {flagshipProject.description}
+              </p>
+
+              <div className="flex flex-wrap gap-2 pt-2">
+                {flagshipProject.tools.map((tool, i) => (
+                  <span
+                    key={i}
+                    className="px-3 py-1 rounded-lg text-xs font-mono bg-white/5 border border-white/10 text-slate-300"
+                  >
+                    {tool}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center">
+              <button
+                onClick={() => scrollToSection("novis")}
+                className="w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-bold text-sm shadow-xl shadow-blue-600/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
+              >
+                <Bot className="w-4 h-4" />
+                <span>Open NOVIS Showcase</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+
+              <button
+                onClick={() => setActiveModalProject(flagshipProject)}
+                className="w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-white font-semibold text-sm transition-all"
+              >
+                <Eye className="w-4 h-4" />
+                <span>View Full Details</span>
+              </button>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Filter Pills */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
           {categories.map((category) => (
             <button
@@ -50,7 +134,7 @@ export const Projects: React.FC = () => {
               onClick={() => setSelectedCategory(category)}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 selectedCategory === category
-                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-600/30 scale-105"
+                  ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-600/30 scale-105"
                   : "bg-white/5 text-slate-300 hover:text-white hover:bg-white/10 border border-white/10"
               }`}
             >
@@ -63,12 +147,7 @@ export const Projects: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project) => {
-              const CategoryIcon =
-                project.category === "Digital Marketing"
-                  ? TrendingUp
-                  : project.category === "Video Editing"
-                  ? Film
-                  : Code2;
+              const CategoryIcon = categoryIconMap[project.category] || Code2;
 
               return (
                 <motion.div
@@ -79,75 +158,93 @@ export const Projects: React.FC = () => {
                   animate="visible"
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.35 }}
-                  className="rounded-2xl bg-slate-900/60 border border-white/10 overflow-hidden backdrop-blur-xl hover:border-white/20 transition-all duration-300 flex flex-col justify-between group shadow-lg hover:shadow-2xl"
+                  className="rounded-3xl bg-slate-900/60 border border-white/10 overflow-hidden backdrop-blur-xl hover:border-white/20 transition-all duration-300 flex flex-col justify-between group shadow-lg hover:shadow-2xl"
                 >
-                  {/* Visual Preview / Local Graphic Card */}
+                  {/* Visual Preview / Header Thumbnail */}
                   <div
                     className={`relative h-48 w-full bg-gradient-to-br ${project.accent} p-5 flex flex-col justify-between overflow-hidden border-b border-white/10`}
                   >
-                    {/* Background abstract art */}
                     <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_30%_30%,#ffffff_1px,transparent_1px)] bg-[size:16px_16px]" />
-                    <div className="absolute -right-8 -bottom-8 w-36 h-36 rounded-full bg-white/10 blur-xl group-hover:scale-125 transition-transform duration-500" />
+                    <div className="absolute -right-8 -bottom-8 w-36 h-36 rounded-full bg-white/10 blur-xl group-hover:scale-125 transition-transform duration-500 pointer-events-none" />
 
-                    {/* Top row badges */}
+                    {/* Top Row Badges */}
                     <div className="relative z-10 flex items-center justify-between">
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono font-medium bg-slate-950/70 border border-white/15 text-slate-200 backdrop-blur-md">
-                        <CategoryIcon className="w-3.5 h-3.5 text-accent" />
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-medium bg-slate-950/70 border border-white/15 text-slate-200 backdrop-blur-md">
+                        <CategoryIcon className="w-3.5 h-3.5 text-cyan-400" />
                         {project.category}
                       </span>
                       <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-white/10 text-cyan-300 border border-white/10 backdrop-blur-md">
-                        {project.type}
+                        {project.status}
                       </span>
                     </div>
 
-                    {/* Bottom tagline inside card graphic */}
-                    <div className="relative z-10">
-                      <span className="text-[11px] font-mono text-slate-300/80 block">
-                        Featured Concept
-                      </span>
-                      <p className="text-white text-base font-bold tracking-tight drop-shadow-sm">
-                        {project.tagline}
-                      </p>
+                    {/* Bottom Preview Overlay */}
+                    <div className="relative z-10 flex items-end justify-between">
+                      <div className="text-white">
+                        <span className="text-[10px] font-mono text-cyan-300 uppercase tracking-widest">
+                          PROJECT
+                        </span>
+                        <h4 className="text-lg font-black tracking-tight leading-snug drop-shadow-md">
+                          {project.title}
+                        </h4>
+                      </div>
+
+                      <button
+                        onClick={() => setActiveModalProject(project)}
+                        className="p-2 rounded-xl bg-black/40 hover:bg-black/60 border border-white/20 text-white backdrop-blur-md transition-all"
+                        title="View Detailed Spec"
+                      >
+                        <Eye className="w-4 h-4" />
+                      </button>
                     </div>
                   </div>
 
                   {/* Body Content */}
                   <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                     <div>
-                      <h3 className="text-lg font-bold text-white group-hover:text-accent transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-slate-300 mt-2 line-clamp-3 leading-relaxed">
+                      <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
                         {project.description}
                       </p>
-                    </div>
 
-                    {/* Tools Tags */}
-                    <div className="pt-2">
-                      <div className="flex flex-wrap gap-1.5 mb-4">
-                        {project.tools.slice(0, 4).map((tool) => (
+                      {/* Tools Tag Badges */}
+                      <div className="flex flex-wrap gap-1.5 mb-3">
+                        {project.tools.map((tool, idx) => (
                           <span
-                            key={tool}
-                            className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-white/5 text-slate-300 border border-white/5"
+                            key={idx}
+                            className="px-2.5 py-1 rounded-lg text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300"
                           >
                             {tool}
                           </span>
                         ))}
-                        {project.tools.length > 4 && (
-                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-md bg-white/5 text-muted">
-                            +{project.tools.length - 4}
-                          </span>
+                      </div>
+                    </div>
+
+                    {/* Metrics or Highlights */}
+                    <div className="pt-3 border-t border-white/5 space-y-2">
+                      <p className="text-[11px] text-cyan-300/90 font-mono flex items-center gap-1">
+                        <Sparkles className="w-3 h-3 text-cyan-400 shrink-0" />
+                        <span>{project.highlight}</span>
+                      </p>
+
+                      <div className="flex items-center justify-between pt-2">
+                        <button
+                          onClick={() => setActiveModalProject(project)}
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-white hover:text-cyan-300 transition-colors"
+                        >
+                          <span>Explore Details</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </button>
+
+                        {project.liveUrl && (
+                          <a
+                            href={project.liveUrl}
+                            className="text-xs font-mono text-slate-400 hover:text-white flex items-center gap-1"
+                          >
+                            <ExternalLink className="w-3.5 h-3.5" />
+                            <span>Preview</span>
+                          </a>
                         )}
                       </div>
-
-                      {/* Action trigger button */}
-                      <button
-                        onClick={() => setActiveModalProject(project)}
-                        className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-semibold bg-white/5 hover:bg-white/10 text-white border border-white/10 hover:border-accent/40 transition-all focus:outline-none focus:ring-1 focus:ring-accent"
-                      >
-                        <Eye className="w-3.5 h-3.5 text-accent" />
-                        <span>Inspect Concept Details</span>
-                      </button>
                     </div>
                   </div>
                 </motion.div>
@@ -155,120 +252,115 @@ export const Projects: React.FC = () => {
             })}
           </AnimatePresence>
         </div>
+      </div>
 
-        {/* Informational Disclosure regarding Portfolio Work */}
-        <div className="mt-12 p-4 rounded-xl bg-white/[0.02] border border-white/5 flex items-center gap-3 text-xs text-muted max-w-3xl mx-auto">
-          <Info className="w-4 h-4 text-cyan-400 shrink-0" />
-          <span>
-            Concept and prototype showcases demonstrate architectural workflows, ad funnels, and creative editing capabilities. Client assets and production URLs are available upon direct request or consultation.
-          </span>
-        </div>
+      {/* Project Detail Modal / Drawer */}
+      <AnimatePresence>
+        {activeModalProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+            onClick={() => setActiveModalProject(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-slate-900 border border-white/15 rounded-3xl p-6 sm:p-8 max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl relative"
+            >
+              <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
+                <div>
+                  <span className="text-[11px] font-mono text-cyan-400 uppercase tracking-widest">
+                    {activeModalProject.category}
+                  </span>
+                  <h3 className="text-xl font-bold text-white">{activeModalProject.title}</h3>
+                </div>
 
-        {/* Project Detail Modal */}
-        <AnimatePresence>
-          {activeModalProject && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/80 backdrop-blur-md">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                className="relative w-full max-w-2xl rounded-3xl bg-slate-900 border border-white/20 p-6 sm:p-8 shadow-2xl overflow-hidden my-8"
-              >
-                {/* Close Button */}
                 <button
                   onClick={() => setActiveModalProject(null)}
-                  className="absolute top-5 right-5 p-2 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white transition-colors focus:outline-none"
-                  aria-label="Close modal"
+                  className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white"
                 >
                   <X className="w-5 h-5" />
                 </button>
+              </div>
 
-                {/* Modal Header */}
-                <div className="mb-6 pr-8">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="px-2.5 py-0.5 rounded-full text-xs font-mono bg-accent/10 text-accent border border-accent/20">
-                      {activeModalProject.category}
-                    </span>
-                    <span className="px-2.5 py-0.5 rounded-full text-xs font-mono bg-white/10 text-slate-300 border border-white/10">
-                      {activeModalProject.type}
-                    </span>
+              <div className="space-y-5 text-sm text-slate-300">
+                <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
+                  <div className="text-xs font-mono text-slate-400 mb-1">Status & Classification</div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                    <span className="text-white font-semibold">{activeModalProject.status}</span>
                   </div>
-                  <h3 className="text-2xl font-bold text-white">{activeModalProject.title}</h3>
-                  <p className="text-sm font-medium text-slate-400 mt-1">
-                    {activeModalProject.tagline}
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-bold text-white mb-2">Project Overview</h4>
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    {activeModalProject.description}
                   </p>
                 </div>
 
-                {/* Description */}
-                <div className="space-y-4 text-sm text-slate-300 leading-relaxed mb-6">
-                  <p>{activeModalProject.description}</p>
-                  
-                  <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10">
-                    <span className="text-xs font-mono uppercase tracking-wider text-accent font-semibold block mb-1">
-                      Key Highlights & Architecture:
-                    </span>
-                    <p className="text-xs text-slate-200">{activeModalProject.highlight}</p>
-                  </div>
-                </div>
-
-                {/* Metrics Grid */}
-                {activeModalProject.metrics && (
-                  <div className="grid grid-cols-3 gap-3 mb-6">
-                    {activeModalProject.metrics.map((metric) => (
-                      <div
-                        key={metric.label}
-                        className="p-3 rounded-xl bg-slate-950/60 border border-white/5 text-center"
-                      >
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-muted block">
-                          {metric.label}
-                        </span>
-                        <span className="text-sm font-bold text-white mt-0.5 block">
-                          {metric.value}
-                        </span>
-                      </div>
-                    ))}
+                {activeModalProject.features && (
+                  <div>
+                    <h4 className="text-sm font-bold text-white mb-2">Key Features & Scope</h4>
+                    <div className="space-y-1.5">
+                      {activeModalProject.features.map((feat, idx) => (
+                        <div key={idx} className="flex items-start gap-2 text-xs text-slate-300">
+                          <CheckCircle className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
+                          <span>{feat}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
 
-                {/* Tools & Tech Stack */}
-                <div className="mb-8">
-                  <span className="text-xs font-mono uppercase tracking-wider text-muted block mb-2.5">
-                    Technologies & Applied Skills:
-                  </span>
-                  <div className="flex flex-wrap gap-2">
-                    {activeModalProject.tools.map((t) => (
+                <div>
+                  <h4 className="text-sm font-bold text-white mb-2">Architecture & Implementation Notes</h4>
+                  <p className="text-xs text-slate-400 leading-relaxed bg-black/40 p-3.5 rounded-xl border border-white/5 font-mono">
+                    {activeModalProject.detailNotes}
+                  </p>
+                </div>
+
+                <div className="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex gap-2">
+                    {activeModalProject.tools.map((tool, idx) => (
                       <span
-                        key={t}
-                        className="px-3 py-1 rounded-lg text-xs font-medium bg-white/5 border border-white/10 text-slate-200"
+                        key={idx}
+                        className="px-2.5 py-1 rounded-md text-xs font-mono bg-white/5 border border-white/10 text-slate-400"
                       >
-                        {t}
+                        {tool}
                       </span>
                     ))}
                   </div>
-                </div>
 
-                {/* Modal Footer */}
-                <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
-                  <button
-                    onClick={() => setActiveModalProject(null)}
-                    className="px-5 py-2.5 rounded-xl text-xs font-semibold bg-white/5 hover:bg-white/10 text-white border border-white/10 transition-colors"
-                  >
-                    Close Preview
-                  </button>
-                  <a
-                    href="#contact"
-                    onClick={() => setActiveModalProject(null)}
-                    className="px-5 py-2.5 rounded-xl text-xs font-semibold bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-600/30 hover:scale-105 transition-all"
-                  >
-                    Inquire About This Workflow
-                  </a>
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => setActiveModalProject(null)}
+                      className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-semibold"
+                    >
+                      Close
+                    </button>
+                    {activeModalProject.id === "novis-ai" && (
+                      <button
+                        onClick={() => {
+                          setActiveModalProject(null);
+                          scrollToSection("novis");
+                        }}
+                        className="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold"
+                      >
+                        Go to NOVIS Interactive Core
+                      </button>
+                    )}
+                  </div>
                 </div>
-              </motion.div>
-            </div>
-          )}
-        </AnimatePresence>
-
-      </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

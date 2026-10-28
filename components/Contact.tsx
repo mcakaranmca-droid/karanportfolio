@@ -8,7 +8,6 @@ import {
   Linkedin,
   Github,
   Instagram,
-  Youtube,
   CheckCircle2,
   AlertCircle,
   Loader2,
@@ -17,9 +16,11 @@ import {
   Check,
   MapPin,
   Clock,
+  ArrowRight,
+  MessageSquare,
 } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { siteConfig, contactServices, budgetRanges } from "@/lib/constants";
+import { siteConfig, contactPresetSubjects } from "@/lib/constants";
 import { ContactFormData, ValidationErrors, validateContactForm } from "@/lib/validation";
 import { fadeInUp } from "@/lib/animations";
 
@@ -27,8 +28,8 @@ export const Contact: React.FC = () => {
   const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
-    service: contactServices[0],
-    budget: budgetRanges[0],
+    service: contactPresetSubjects[0],
+    budget: "Flexible / Discussion",
     message: "",
     honeypot: "",
   });
@@ -61,7 +62,7 @@ export const Contact: React.FC = () => {
     e.preventDefault();
     setStatusMessage(null);
 
-    // Validate client-side
+    // Validate
     const validation = validateContactForm(formData);
     if (!validation.isValid) {
       setErrors(validation.errors);
@@ -82,13 +83,13 @@ export const Contact: React.FC = () => {
       if (response.ok && result.success) {
         setStatusMessage({
           type: "success",
-          text: result.message || "Message sent successfully!",
+          text: result.message || "Message sent successfully! I will respond promptly.",
         });
         setFormData({
           name: "",
           email: "",
-          service: contactServices[0],
-          budget: budgetRanges[0],
+          service: contactPresetSubjects[0],
+          budget: "Flexible / Discussion",
           message: "",
           honeypot: "",
         });
@@ -103,10 +104,10 @@ export const Contact: React.FC = () => {
         }
       }
     } catch (err) {
-      console.error("Submission network error:", err);
+      console.error("Submission error:", err);
       setStatusMessage({
         type: "error",
-        text: "Network error occurred. Please check your connection or reach out via direct email.",
+        text: "Network error occurred. Please reach out via direct email at contact.karanportfolio@gmail.com.",
       });
     } finally {
       setIsSubmitting(false);
@@ -115,14 +116,17 @@ export const Contact: React.FC = () => {
 
   return (
     <section id="contact" className="py-20 lg:py-28 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Background radial glow */}
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header */}
+        {/* Section Header with exact master prompt title */}
         <SectionHeader
-          badge="Start a Project"
-          title="Let's Build"
-          highlight="Something Great."
-          description="Have a digital marketing campaign, video editing requirement, or full-stack web project? Send a message and let's bring it to life."
+          badge="Get In Touch"
+          title="Have an Idea?"
+          highlight="Let's Build Something Great."
+          description="Whether you need a creative promotional video, a digital marketing strategy, a modern website, or a conversation about an innovative project, let's connect."
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
@@ -136,13 +140,39 @@ export const Contact: React.FC = () => {
             className="lg:col-span-7"
           >
             <div className="rounded-3xl bg-slate-900/60 border border-white/10 p-6 sm:p-8 lg:p-10 backdrop-blur-xl shadow-2xl relative">
-              <h3 className="text-xl font-bold text-white mb-2">Send an Inquiry</h3>
-              <p className="text-xs sm:text-sm text-muted mb-6">
-                Fill out the form below and I'll respond within 24 hours.
+              <h3 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
+                <MessageSquare className="w-5 h-5 text-cyan-400" />
+                <span>Send a Direct Message</span>
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-400 mb-6">
+                Fill out the form below or select a project inquiry topic.
               </p>
 
+              {/* Quick Preset Selector */}
+              <div className="mb-6">
+                <span className="text-xs font-mono text-slate-400 block mb-2">
+                  Quick Inquiry Topic:
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {contactPresetSubjects.map((subject, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setFormData((prev) => ({ ...prev, service: subject }))}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
+                        formData.service === subject
+                          ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-600/30 border border-blue-400/40"
+                          : "bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10"
+                      }`}
+                    >
+                      {subject}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5" noValidate>
-                {/* Honeypot for bot protection */}
+                {/* Honeypot for spam bots */}
                 <input
                   type="text"
                   name="honeypot"
@@ -155,10 +185,9 @@ export const Contact: React.FC = () => {
 
                 {/* Name & Email Row */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Name Field */}
                   <div>
                     <label htmlFor="name" className="block text-xs font-semibold text-slate-300 mb-1.5">
-                      Your Name <span className="text-rose-400">*</span>
+                      Your Name <span className="text-cyan-400">*</span>
                     </label>
                     <input
                       type="text"
@@ -166,13 +195,13 @@ export const Contact: React.FC = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="e.g. Alex Morgan"
+                      placeholder="e.g. Alex"
                       aria-required="true"
                       aria-invalid={!!errors.name}
                       className={`w-full px-4 py-3 rounded-xl bg-slate-950/70 border text-white text-sm focus:outline-none transition-colors ${
                         errors.name
                           ? "border-rose-500/80 focus:border-rose-400"
-                          : "border-white/10 focus:border-accent"
+                          : "border-white/10 focus:border-cyan-400"
                       }`}
                     />
                     {errors.name && (
@@ -183,10 +212,9 @@ export const Contact: React.FC = () => {
                     )}
                   </div>
 
-                  {/* Email Field */}
                   <div>
                     <label htmlFor="email" className="block text-xs font-semibold text-slate-300 mb-1.5">
-                      Email Address <span className="text-rose-400">*</span>
+                      Email Address <span className="text-cyan-400">*</span>
                     </label>
                     <input
                       type="email"
@@ -194,13 +222,13 @@ export const Contact: React.FC = () => {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="alex@company.com"
+                      placeholder="alex@domain.com"
                       aria-required="true"
                       aria-invalid={!!errors.email}
                       className={`w-full px-4 py-3 rounded-xl bg-slate-950/70 border text-white text-sm focus:outline-none transition-colors ${
                         errors.email
                           ? "border-rose-500/80 focus:border-rose-400"
-                          : "border-white/10 focus:border-accent"
+                          : "border-white/10 focus:border-cyan-400"
                       }`}
                     />
                     {errors.email && (
@@ -212,58 +240,30 @@ export const Contact: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Service Required Dropdown */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label
-                      htmlFor="service-select"
-                      className="block text-xs font-semibold text-slate-300 mb-1.5"
-                    >
-                      Service Required <span className="text-rose-400">*</span>
-                    </label>
-                    <select
-                      id="service-select"
-                      name="service"
-                      value={formData.service}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950/70 border border-white/10 text-white text-sm focus:outline-none focus:border-accent transition-colors"
-                    >
-                      {contactServices.map((srv) => (
-                        <option key={srv} value={srv} className="bg-slate-900 text-white">
-                          {srv}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  {/* Budget (Optional) */}
-                  <div>
-                    <label
-                      htmlFor="budget"
-                      className="block text-xs font-semibold text-slate-300 mb-1.5"
-                    >
-                      Estimated Budget (Optional)
-                    </label>
-                    <select
-                      id="budget"
-                      name="budget"
-                      value={formData.budget}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950/70 border border-white/10 text-white text-sm focus:outline-none focus:border-accent transition-colors"
-                    >
-                      {budgetRanges.map((b) => (
-                        <option key={b} value={b} className="bg-slate-900 text-white">
-                          {b}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                {/* Selected Subject */}
+                <div>
+                  <label htmlFor="service-select" className="block text-xs font-semibold text-slate-300 mb-1.5">
+                    Subject / Project Area <span className="text-cyan-400">*</span>
+                  </label>
+                  <select
+                    id="service-select"
+                    name="service"
+                    value={formData.service}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-xl bg-slate-950/70 border border-white/10 text-white text-sm focus:outline-none focus:border-cyan-400 transition-colors"
+                  >
+                    {contactPresetSubjects.map((srv) => (
+                      <option key={srv} value={srv} className="bg-slate-900 text-white">
+                        {srv}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 {/* Message Field */}
                 <div>
                   <label htmlFor="message" className="block text-xs font-semibold text-slate-300 mb-1.5">
-                    Project Overview & Details <span className="text-rose-400">*</span>
+                    Your Message <span className="text-cyan-400">*</span>
                   </label>
                   <textarea
                     id="message"
@@ -271,13 +271,13 @@ export const Contact: React.FC = () => {
                     rows={4}
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Tell me about your goals, timeline, and current requirements..."
+                    placeholder="Tell me about your vision, goals, and what you would like to build..."
                     aria-required="true"
                     aria-invalid={!!errors.message}
                     className={`w-full px-4 py-3 rounded-xl bg-slate-950/70 border text-white text-sm focus:outline-none transition-colors ${
                       errors.message
                         ? "border-rose-500/80 focus:border-rose-400"
-                        : "border-white/10 focus:border-accent"
+                        : "border-white/10 focus:border-cyan-400"
                     }`}
                   />
                   {errors.message && (
@@ -306,21 +306,21 @@ export const Contact: React.FC = () => {
                   </div>
                 )}
 
-                {/* Submit Button */}
+                {/* Submit Button with Loading State */}
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-600 text-white shadow-lg shadow-indigo-600/30 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-2 focus:ring-accent"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-xl shadow-blue-600/30 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 disabled:pointer-events-none"
                 >
                   {isSubmitting ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>Sending Inquiry...</span>
+                      <span>Sending Message...</span>
                     </>
                   ) : (
                     <>
                       <Send className="w-4 h-4" />
-                      <span>Send Project Inquiry</span>
+                      <span>Send Message</span>
                     </>
                   )}
                 </button>
@@ -328,7 +328,7 @@ export const Contact: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* RIGHT COLUMN - Direct Channels & Availability Card */}
+          {/* RIGHT COLUMN - Direct Channels, Socials & Location */}
           <motion.div
             variants={fadeInUp}
             initial="hidden"
@@ -336,23 +336,22 @@ export const Contact: React.FC = () => {
             viewport={{ once: true, margin: "-60px" }}
             className="lg:col-span-5 space-y-6"
           >
-            {/* Quick Contact & Availability Card */}
-            <div className="rounded-3xl bg-slate-900/60 border border-white/10 p-6 sm:p-8 backdrop-blur-xl space-y-5">
-              <span className="text-xs font-mono uppercase tracking-wider text-accent font-semibold block">
-                Direct Contact Channels
+            <div className="rounded-3xl bg-slate-900/60 border border-white/10 p-6 sm:p-8 backdrop-blur-xl space-y-6">
+              <span className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-semibold block">
+                Direct Contact & Channels
               </span>
 
-              {/* Email direct copy */}
+              {/* Email direct copy box */}
               <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-between">
                 <div className="flex items-center gap-3 overflow-hidden">
-                  <div className="p-2.5 rounded-xl bg-accent/10 text-accent shrink-0">
+                  <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 shrink-0">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div className="overflow-hidden">
-                    <span className="text-[11px] text-muted block">Direct Email</span>
+                    <span className="text-[11px] text-slate-400 block font-mono">Email Address</span>
                     <a
                       href={`mailto:${siteConfig.email}`}
-                      className="text-xs sm:text-sm font-semibold text-white hover:text-accent transition-colors truncate block"
+                      className="text-xs sm:text-sm font-semibold text-white hover:text-cyan-300 transition-colors truncate block"
                     >
                       {siteConfig.email}
                     </a>
@@ -372,29 +371,29 @@ export const Contact: React.FC = () => {
                 </button>
               </div>
 
-              {/* Status and Timezone */}
-              <div className="space-y-3 pt-2">
-                <div className="flex items-center gap-2.5 text-xs text-slate-300">
-                  <Clock className="w-4 h-4 text-accent shrink-0" />
-                  <span>Response time: Usually within 24 hours</span>
+              {/* Location & Response Info */}
+              <div className="space-y-3 pt-1">
+                <div className="flex items-center gap-2.5 text-xs text-slate-300 font-mono">
+                  <Clock className="w-4 h-4 text-cyan-400 shrink-0" />
+                  <span>Prompt Response: Within 24 hours</span>
                 </div>
-                <div className="flex items-center gap-2.5 text-xs text-slate-300">
+                <div className="flex items-center gap-2.5 text-xs text-slate-300 font-mono">
                   <MapPin className="w-4 h-4 text-purple-400 shrink-0" />
                   <span>{siteConfig.location}</span>
                 </div>
               </div>
 
-              {/* Social Channels List */}
+              {/* Configurable Social Links */}
               <div className="pt-4 border-t border-white/10">
-                <span className="text-xs font-mono uppercase tracking-wider text-muted block mb-3 font-semibold">
-                  Professional Networks
+                <span className="text-xs font-mono uppercase tracking-wider text-slate-400 block mb-3 font-semibold">
+                  Connect on Social Media
                 </span>
-                <div className="grid grid-cols-2 gap-2.5">
+                <div className="grid grid-cols-2 gap-3">
                   <a
                     href={siteConfig.socials.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2.5 p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 text-xs text-slate-300 hover:text-white transition-colors"
+                    className="flex items-center gap-2.5 p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-xs text-slate-200 hover:text-white transition-colors"
                   >
                     <Linkedin className="w-4 h-4 text-blue-400 shrink-0" />
                     <span>LinkedIn</span>
@@ -404,7 +403,7 @@ export const Contact: React.FC = () => {
                     href={siteConfig.socials.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2.5 p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 text-xs text-slate-300 hover:text-white transition-colors"
+                    className="flex items-center gap-2.5 p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-xs text-slate-200 hover:text-white transition-colors"
                   >
                     <Github className="w-4 h-4 text-slate-200 shrink-0" />
                     <span>GitHub</span>
@@ -414,33 +413,32 @@ export const Contact: React.FC = () => {
                     href={siteConfig.socials.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2.5 p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 text-xs text-slate-300 hover:text-white transition-colors"
+                    className="flex items-center gap-2.5 p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-xs text-slate-200 hover:text-white transition-colors"
                   >
                     <Instagram className="w-4 h-4 text-pink-400 shrink-0" />
                     <span>Instagram</span>
                   </a>
 
                   <a
-                    href={siteConfig.socials.youtube}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2.5 p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 text-xs text-slate-300 hover:text-white transition-colors"
+                    href={siteConfig.socials.email}
+                    className="flex items-center gap-2.5 p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-xs text-slate-200 hover:text-white transition-colors"
                   >
-                    <Youtube className="w-4 h-4 text-red-400 shrink-0" />
-                    <span>YouTube</span>
+                    <Mail className="w-4 h-4 text-cyan-400 shrink-0" />
+                    <span>Direct Mail</span>
                   </a>
                 </div>
               </div>
             </div>
 
-            {/* Freelance & Partnership Callout */}
-            <div className="p-6 rounded-3xl bg-gradient-to-r from-indigo-950/40 to-purple-950/40 border border-indigo-500/20 backdrop-blur-xl">
+            {/* Quick Pitch Callout */}
+            <div className="p-6 rounded-3xl bg-gradient-to-r from-blue-950/40 via-purple-950/40 to-slate-950/40 border border-cyan-500/20 backdrop-blur-xl">
               <span className="text-xs font-mono uppercase tracking-wider text-cyan-400 block mb-1">
-                Collaborative Opportunities
+                Collaborative Ambition
               </span>
-              <h4 className="text-sm font-bold text-white mb-2">Open for Q1/Q2 Projects</h4>
+              <h4 className="text-sm font-bold text-white mb-2">Ready to Build Value</h4>
               <p className="text-xs text-slate-300 leading-relaxed">
-                Whether you need a dedicated performance marketing campaign, viral short-form video reels, or a full-stack Next.js web application, I am available to consult and build.
+                Whether you need a dedicated performance marketing campaign, viral short-form video reels,
+                or modern web engineering, I am ready to collaborate and deliver high-impact digital experiences.
               </p>
             </div>
           </motion.div>
